@@ -21,7 +21,7 @@ from datetime import datetime
 import os
 import glob
 import time
-#import usbtmc
+import usbtmc
 
 
 #from zarizeni2 import pyf429
@@ -29,7 +29,7 @@ import time
 
 
 #keysigh voltmeter init 
-#instr = usbtmc.Instrument(0x2a8d, 0x1301) #address from usbtmc.list_devices()
+instr = usbtmc.Instrument(0x05e6, 0x2470) #address from usbtmc.list_devices()
 
 
 
@@ -71,7 +71,7 @@ def read_temp():
 
 
 
-filename = datetime.utcnow().strftime("./AllData/temperatures/read_%Y%m%d_%H%M.csv")
+filename = datetime.utcnow().strftime("./AllData/readCurrent_%Y%m%d_%H%M.csv")
 with open(filename,"a") as file:
 #    file.write("# Thorlabs Power Meter measurement log\n")
 #    file.write("# Preset wavelength: "+str(power_meter.sense.correction.wavelength))
@@ -82,12 +82,12 @@ with open(filename,"a") as file:
         time = datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S")
         #meas = power_meter.read
         temp = read_temp()
-        #voltage = instr.ask("READ?")
+        current = instr.ask("MEASure:CURRent?")
         #led_temp = led.teplota()
         #led_temp = -300
         with open(filename,"a") as file:
             #file.write(time+",\t"+str(meas)+",\t" + str(temp) + ",\t" + str(led_temp) + ",\t" + str(voltage) + "\n")
-            file.write(str(temp) + "\n")
+            file.write(str(temp) + ",\t" +str(current) + "\n")
         #print(time+" PM value"+str(meas) + " PMT temp:"+str(temp) + " led temp:" + str(led_temp) + " source voltage:" + str(voltage))
-        print(time+" Temp: " + str(temp))
+        print(time+" Temp: " + str(temp) + "Current: " + str(current) + "\n")
         #sleep(1)
