@@ -2,7 +2,7 @@ import serial
 import sys
 
 MaxTemp = 300
-MinTemp = 520
+MinTemp = 550
 direction = "U"
 newdirection = "U" 
 Set_Temp = MinTemp
@@ -16,11 +16,11 @@ with open("./TempNum.txt") as file:
     direction = file.readline()
     newdirection = direction
     if(direction == "D" and Temp_old > MaxTemp):
-        Set_Temp = Temp_old - 10
+        Set_Temp = Temp_old - 50
     elif(direction == "D" and Temp_old == MaxTemp):
         newdirection = "U"
     elif(direction == "U" and Temp_old < MinTemp):
-        Set_Temp = Temp_old + 10
+        Set_Temp = Temp_old + 50
     elif(direction == "U" and Temp_old == MinTemp):
         newdirection = "D"
 

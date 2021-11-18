@@ -71,7 +71,7 @@ def read_temp():
 
 
 
-filename = datetime.utcnow().strftime("./AllData/readCurrent_%Y%m%d_%H%M.csv")
+filename = datetime.utcnow().strftime("./AllData/checkCurrent_%Y%m%d_%H%M.csv")
 with open(filename,"a") as file:
 #    file.write("# Thorlabs Power Meter measurement log\n")
 #    file.write("# Preset wavelength: "+str(power_meter.sense.correction.wavelength))
@@ -87,7 +87,10 @@ with open(filename,"a") as file:
         #led_temp = -300
         with open(filename,"a") as file:
             #file.write(time+",\t"+str(meas)+",\t" + str(temp) + ",\t" + str(led_temp) + ",\t" + str(voltage) + "\n")
-            file.write(str(temp) + ",\t" +str(current) + "\n")
+            if(i != 29):
+                file.write(str(temp) + ",\t" +str(current) + "\n")
+            else:
+                file.write(str(temp) + ",\t" +str(current))
         #print(time+" PM value"+str(meas) + " PMT temp:"+str(temp) + " led temp:" + str(led_temp) + " source voltage:" + str(voltage))
-        print(time+" Temp: " + str(temp) + "Current: " + str(current) + "\n")
-        #sleep(1)
+        print(time+" Temp: " + str(temp) + " Current: " + str(current) + "\n")
+        sleep(15)
